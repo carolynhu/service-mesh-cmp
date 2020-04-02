@@ -1,0 +1,217 @@
+{
+  "RunType": "HTTP",
+  "Labels": "a6e04fb6_qps_1000_c_2_1024_v2-nullvm_base",
+  "StartTime": "2020-04-02T06:48:26.189199494Z",
+  "RequestedQPS": "1000",
+  "RequestedDuration": "4m0s",
+  "ActualQPS": 999.9973525945088,
+  "ActualDuration": 240000635379,
+  "NumThreads": 2,
+  "Version": "1.3.2-pre",
+  "DurationHistogram": {
+    "Count": 240000,
+    "Min": 0.000165708,
+    "Max": 0.004232465,
+    "Sum": 84.64103288000072,
+    "Avg": 0.00035267097033333633,
+    "StdDev": 0.00007927556611121857,
+    "Data": [
+      {
+        "Start": 0.000165708,
+        "End": 0.0002,
+        "Percent": 0.0175,
+        "Count": 42
+      },
+      {
+        "Start": 0.0002,
+        "End": 0.00025,
+        "Percent": 0.6025,
+        "Count": 1404
+      },
+      {
+        "Start": 0.00025,
+        "End": 0.00030000000000000003,
+        "Percent": 16.949583333333333,
+        "Count": 39233
+      },
+      {
+        "Start": 0.00030000000000000003,
+        "End": 0.00035,
+        "Percent": 58.969166666666666,
+        "Count": 100847
+      },
+      {
+        "Start": 0.00035,
+        "End": 0.0004,
+        "Percent": 86.05375,
+        "Count": 65003
+      },
+      {
+        "Start": 0.0004,
+        "End": 0.00045000000000000004,
+        "Percent": 93.4025,
+        "Count": 17637
+      },
+      {
+        "Start": 0.00045000000000000004,
+        "End": 0.0005,
+        "Percent": 95.62791666666666,
+        "Count": 5341
+      },
+      {
+        "Start": 0.0005,
+        "End": 0.00055,
+        "Percent": 97.335,
+        "Count": 4097
+      },
+      {
+        "Start": 0.00055,
+        "End": 0.0006000000000000001,
+        "Percent": 98.66583333333334,
+        "Count": 3194
+      },
+      {
+        "Start": 0.0006000000000000001,
+        "End": 0.0007,
+        "Percent": 99.67291666666667,
+        "Count": 2417
+      },
+      {
+        "Start": 0.0007,
+        "End": 0.0008,
+        "Percent": 99.82083333333334,
+        "Count": 355
+      },
+      {
+        "Start": 0.0008,
+        "End": 0.0009000000000000001,
+        "Percent": 99.87791666666666,
+        "Count": 137
+      },
+      {
+        "Start": 0.0009000000000000001,
+        "End": 0.001,
+        "Percent": 99.9025,
+        "Count": 59
+      },
+      {
+        "Start": 0.001,
+        "End": 0.00125,
+        "Percent": 99.94,
+        "Count": 90
+      },
+      {
+        "Start": 0.00125,
+        "End": 0.0015,
+        "Percent": 99.96125,
+        "Count": 51
+      },
+      {
+        "Start": 0.0015,
+        "End": 0.00175,
+        "Percent": 99.97791666666667,
+        "Count": 40
+      },
+      {
+        "Start": 0.00175,
+        "End": 0.002,
+        "Percent": 99.98375,
+        "Count": 14
+      },
+      {
+        "Start": 0.002,
+        "End": 0.0022500000000000003,
+        "Percent": 99.98791666666666,
+        "Count": 10
+      },
+      {
+        "Start": 0.0022500000000000003,
+        "End": 0.0025,
+        "Percent": 99.99125,
+        "Count": 8
+      },
+      {
+        "Start": 0.0025,
+        "End": 0.003,
+        "Percent": 99.99625,
+        "Count": 12
+      },
+      {
+        "Start": 0.003,
+        "End": 0.0035,
+        "Percent": 99.99875,
+        "Count": 6
+      },
+      {
+        "Start": 0.004,
+        "End": 0.004232465,
+        "Percent": 100,
+        "Count": 3
+      }
+    ],
+    "Percentiles": [
+      {
+        "Percentile": 50,
+        "Value": 0.0003393273969478517
+      },
+      {
+        "Percentile": 75,
+        "Value": 0.00037959401873759673
+      },
+      {
+        "Percentile": 90,
+        "Value": 0.0004268498043885015
+      },
+      {
+        "Percentile": 99,
+        "Value": 0.0006331816301199831
+      },
+      {
+        "Percentile": 99.9,
+        "Value": 0.000989830508474588
+      }
+    ]
+  },
+  "Exactly": 0,
+  "Jitter": false,
+  "RetCodes": {
+    "200": 240000
+  },
+  "Sizes": {
+    "Count": 240000,
+    "Min": 1142,
+    "Max": 1142,
+    "Sum": 274080000,
+    "Avg": 1142,
+    "StdDev": 0,
+    "Data": [
+      {
+        "Start": 1142,
+        "End": 1142,
+        "Percent": 100,
+        "Count": 240000
+      }
+    ],
+    "Percentiles": null
+  },
+  "HeaderSizes": {
+    "Count": 240000,
+    "Min": 118,
+    "Max": 118,
+    "Sum": 28320000,
+    "Avg": 118,
+    "StdDev": 0,
+    "Data": [
+      {
+        "Start": 118,
+        "End": 118,
+        "Percent": 100,
+        "Count": 240000
+      }
+    ],
+    "Percentiles": null
+  },
+  "URL": "http://10.4.1.4:8077/echo?size=1024",
+  "SocketCount": 2,
+  "AbortOn": 0
+}

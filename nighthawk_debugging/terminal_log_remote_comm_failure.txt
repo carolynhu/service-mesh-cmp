@@ -1,0 +1,83 @@
+(runner) bash-3.2$ python runner.py --conn 2,4,8,16,32,64 --qps 1000 --duration 240 --baseline --load_gen_type=nighthawk --telemetry_mode=v2-nullvm
+Namespace(baseline=True, bothsidecar=True, cacert=None, client=None, clientsidecar=False, config_file=None, conn=[2, 4, 8, 16, 32, 64], duration=240, extra_labels=None, headers=None, ingress=None, load_gen_type=‘nighthawk’, mesh=‘istio’, mode=‘http’, perf=False, qps=[1000], server=None, serversidecar=False, size=1024, telemetry_mode=‘v2-nullvm’)
+Able to connect to nighthawk_service, proceeding
+-------------- Running in both sidecar mode --------------
+docker run --rm --network=host envoyproxy/nighthawk-dev:59683b759eb8f8bd8cce282795c08f9e2b3313d4 nighthawk_client --concurrency 1 --output-format json --prefetch-connections --open-loop --jitter-uniform 0.0001s --experimental-h1-connection-reuse-strategy lru --experimental-h2-use-multiple-connections --nighthawk-service 127.0.0.1:9999 --label Nighthawk --connections 2 --rps 1000 --duration 240 --request-header “x-nighthawk-test-server-config: {response_body_size:1024}” --label 489cbb12_qps_1000_c_2_1024_v2-nullvm_srv_bothsidecars http://fortioserver:8080/
+[2020-04-27 19:45:46.836][1][warning][misc] [external/envoy/source/common/protobuf/utility.cc:198] Using deprecated option ‘nighthawk.client.CommandLineOptions.tls_context’ from file options.proto. This configuration will be removed from Envoy soon. Please see https://www.envoyproxy.io/docs/envoy/latest/intro/deprecated for details.
+[19:45:46.839668][1][E] [source/client/remote_process_impl.cc:51] Failure while communicating with the remote service
+[19:45:46.841542][1][E] [source/client/client.cc:81] An error ocurred.
+nighthawk remote execution error: 1
+--> stdout: {
+ “options”: {
+  “verbosity”: {
+   “value”: “INFO”
+  },
+  “output_format”: {
+   “value”: “JSON”
+  },
+  “address_family”: {
+   “value”: “AUTO”
+  },
+  “request_options”: {
+   “request_method”: “GET”,
+   “request_headers”: [
+    {
+     “header”: {
+      “key”: “x-nighthawk-test-server-config”,
+      “value”: “{response_body_size:1024}”
+     },
+     “append”: false
+    }
+   ],
+   “request_body_size”: 0
+  },
+  “tls_context”: {
+   “sni”: “”,
+   “allow_renegotiation”: false
+  },
+  “sequencer_idle_strategy”: {
+   “value”: “SPIN”
+  },
+  “experimental_h1_connection_reuse_strategy”: {
+   “value”: “LRU”
+  },
+  “termination_predicates”: {},
+  “failure_predicates”: {
+   “requestsource.upstream_rq_5xx”: “0",
+   “benchmark.pool_connection_failure”: “0",
+   “benchmark.http_4xx”: “0",
+   “benchmark.http_5xx”: “0"
+  },
+  “labels”: [
+   “Nighthawk”,
+   “489cbb12_qps_1000_c_2_1024_v2-nullvm_srv_bothsidecars”
+  ],
+  “requests_per_second”: 1000,
+  “connections”: 2,
+  “duration”: “240s”,
+  “timeout”: “30s”,
+  “h2": false,
+  “concurrency”: “1",
+  “prefetch_connections”: true,
+  “burst_size”: 0,
+  “max_pending_requests”: 0,
+  “max_active_requests”: 100,
+  “max_requests_per_connection”: 4294937295,
+  “uri”: “http://fortioserver:8080/”,
+  “trace”: “”,
+  “open_loop”: true,
+  “jitter_uniform”: “0.000100s”,
+  “experimental_h2_use_multiple_connections”: true,
+  “nighthawk_service”: “127.0.0.1:9999”,
+  “simple_warmup”: false
+ },
+ “results”: [],
+ “version”: {
+  “version”: {
+   “major_number”: 0,
+   “minor_number”: 3,
+   “patch”: 0
+  }
+ },
+ “timestamp”: “2020-04-27T19:45:46.839008200Z”
+}

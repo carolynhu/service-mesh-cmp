@@ -1,0 +1,432 @@
+(runner) bash-3.2$ python runner.py --conn 2,4,8,16,32,64 --qps 1000 --duration 240 --baseline --load_gen_type=nighthawk --telemetry_mode=v2-nullvm
+Namespace(baseline=True, bothsidecar=True, cacert=None, client=None, clientsidecar=False, config_file=None, conn=[2, 4, 8, 16, 32, 64], duration=240, extra_labels=None, headers=None, ingress=None, load_gen_type='nighthawk', mesh='istio', mode='http', perf=False, qps=[1000], server=None, serversidecar=False, size=1024, telemetry_mode='v2-nullvm')
+Able to connect to nighthawk_service, proceeding
+-------------- Running in both sidecar mode --------------
+nighthawk commandline: kubectl --namespace twopods-istio exec fortioclient-8f7c4bcf5-gpvh4 -c captured -- nighthawk_client --concurrency 1 --output-format json --prefetch-connections --open-loop --jitter-uniform 0.0001s --experimental-h1-connection-reuse-strategy lru --experimental-h2-use-multiple-connections --label Nighthawk --connections 2 --rps 1000 --duration 240 --request-header "x-nighthawk-test-server-config: {response_body_size:1024}" --label f791c6ab_qps_1000_c_2_1024_v2-nullvm_srv_bothsidecars http://fortioserver:8080/
+[2020-04-28 02:39:26.682][49][warning][misc] [external/envoy/source/common/protobuf/utility.cc:198] Using deprecated option 'nighthawk.client.CommandLineOptions.tls_context' from file options.proto. This configuration will be removed from Envoy soon. Please see https://www.envoyproxy.io/docs/envoy/latest/intro/deprecated for details.
+[02:39:26.692295][49][I] [source/client/process_impl.cc:197] Starting 1 threads / event loops. Test duration: 240 seconds.
+[02:39:26.692317][49][I] [source/client/process_impl.cc:199] Global targets: 2 connections and 1000 calls per second.
+[02:39:26.703318][49][I] [external/envoy/source/common/upstream/cluster_manager_impl.cc:171] cm init: all clusters initialized
+[02:43:27.192383][58][I] [source/common/sequencer_impl.cc:65] Stopping after 240000 ms. Initiated: 240000 / Completed: 239999. (Completion rate was 999.996 per second.)
+[02:43:27.284132][49][I] [source/client/client.cc:83] Done.
+Dumped Nighthawk's json to /tmp/tmpvj1ja5ao
+Nighthawk - A layer 7 protocol benchmarking tool.
+
+Queueing and connection setup latency (239960 samples)
+  min: 0s 000ms 002us | mean: 0s 000ms 004us | max: 0s 008ms 521us | pstdev: 0s 000ms 030us
+
+  Percentile  Count       Value
+  0.5         120113      0s 000ms 003us
+  0.75        180033      0s 000ms 003us
+  0.8         192018      0s 000ms 004us
+  0.9         215971      0s 000ms 004us
+  0.95        227965      0s 000ms 007us
+  0.990625    237711      0s 000ms 016us
+  0.999023    239726      0s 000ms 059us
+
+Request start to response end (239959 samples)
+  min: 0s 000ms 657us | mean: 0s 000ms 938us | max: 0s 010ms 230us | pstdev: 0s 000ms 190us
+
+  Percentile  Count       Value
+  0.5         119986      0s 000ms 886us
+  0.75        179979      0s 001ms 019us
+  0.8         191974      0s 001ms 065us
+  0.9         215965      0s 001ms 228us
+  0.95        227967      0s 001ms 302us
+  0.990625    237711      0s 001ms 462us
+  0.999023    239725      0s 002ms 027us
+
+Response body size in bytes (239959 samples)
+  min: 1024 | mean: 1024.0 | max: 1024 | pstdev: 0.0
+
+Response header size in bytes (239959 samples)
+  min: 143 | mean: 143.0 | max: 143 | pstdev: 0.0
+
+Initiation to completion (239999 samples)
+  min: 0s 000ms 001us | mean: 0s 000ms 944us | max: 0s 010ms 667us | pstdev: 0s 000ms 194us
+
+  Percentile  Count       Value
+  0.5         120018      0s 000ms 893us
+  0.75        180002      0s 001ms 026us
+  0.8         192004      0s 001ms 072us
+  0.9         216004      0s 001ms 235us
+  0.95        228003      0s 001ms 310us
+  0.990625    237750      0s 001ms 474us
+  0.999023    239765      0s 002ms 076us
+
+Counter                                 Value       Per second
+benchmark.http_2xx                      239959      999.83
+benchmark.pool_overflow                 40          0.17
+cluster_manager.cluster_added           1           0.00
+default.total_match_count               1           0.00
+membership_change                       1           0.00
+runtime.load_success                    1           0.00
+runtime.override_dir_not_exists         1           0.00
+upstream_cx_http1_total                 2           0.01
+upstream_cx_overflow                    270         1.12
+upstream_cx_rx_bytes_total              287950800   1199794.92
+upstream_cx_total                       2           0.01
+upstream_cx_tx_bytes_total              29035160    120979.83
+upstream_rq_pending_overflow            40          0.17
+upstream_rq_pending_total               270         1.12
+upstream_rq_total                       239960      999.83
+
+kubectl --namespace twopods-istio cp /tmp/tmpvj1ja5ao.fortio.json fortioclient-8f7c4bcf5-gpvh4:/var/lib/fortio/2020-04-27-194329_nighthawk_f791c6ab_qps_1000_c_2_1024_v2-nullvm_srv_bothsidecars.json -c shell
+-------------- Running in both sidecar mode --------------
+nighthawk commandline: kubectl --namespace twopods-istio exec fortioclient-8f7c4bcf5-gpvh4 -c captured -- nighthawk_client --concurrency 1 --output-format json --prefetch-connections --open-loop --jitter-uniform 0.0001s --experimental-h1-connection-reuse-strategy lru --experimental-h2-use-multiple-connections --label Nighthawk --connections 4 --rps 1000 --duration 240 --request-header "x-nighthawk-test-server-config: {response_body_size:1024}" --label f791c6ab_qps_1000_c_4_1024_v2-nullvm_srv_bothsidecars http://fortioserver:8080/
+[2020-04-28 02:43:32.724][60][warning][misc] [external/envoy/source/common/protobuf/utility.cc:198] Using deprecated option 'nighthawk.client.CommandLineOptions.tls_context' from file options.proto. This configuration will be removed from Envoy soon. Please see https://www.envoyproxy.io/docs/envoy/latest/intro/deprecated for details.
+[02:43:32.758531][60][I] [source/client/process_impl.cc:197] Starting 1 threads / event loops. Test duration: 240 seconds.
+[02:43:32.758561][60][I] [source/client/process_impl.cc:199] Global targets: 4 connections and 1000 calls per second.
+[02:43:32.769954][60][I] [external/envoy/source/common/upstream/cluster_manager_impl.cc:171] cm init: all clusters initialized
+[02:47:33.258723][69][I] [source/common/sequencer_impl.cc:65] Stopping after 240000 ms. Initiated: 240000 / Completed: 239999. (Completion rate was 999.996 per second.)
+[02:47:33.349895][60][I] [source/client/client.cc:83] Done.
+Dumped Nighthawk's json to /tmp/tmpod_iasvg
+Nighthawk - A layer 7 protocol benchmarking tool.
+
+Queueing and connection setup latency (239976 samples)
+  min: 0s 000ms 002us | mean: 0s 000ms 003us | max: 0s 007ms 319us | pstdev: 0s 000ms 026us
+
+  Percentile  Count       Value
+  0.5         120147      0s 000ms 003us
+  0.75        180053      0s 000ms 003us
+  0.8         192015      0s 000ms 003us
+  0.9         215983      0s 000ms 004us
+  0.95        227979      0s 000ms 005us
+  0.990625    237727      0s 000ms 009us
+  0.999023    239742      0s 000ms 016us
+
+Request start to response end (239975 samples)
+  min: 0s 000ms 673us | mean: 0s 000ms 979us | max: 0s 012ms 019us | pstdev: 0s 000ms 200us
+
+  Percentile  Count       Value
+  0.5         120017      0s 000ms 922us
+  0.75        179989      0s 001ms 027us
+  0.8         191981      0s 001ms 079us
+  0.9         215980      0s 001ms 265us
+  0.95        227982      0s 001ms 343us
+  0.990625    237726      0s 001ms 550us
+  0.999023    239741      0s 002ms 268us
+
+Response body size in bytes (239975 samples)
+  min: 1024 | mean: 1024.0 | max: 1024 | pstdev: 0.0
+
+Response header size in bytes (239975 samples)
+  min: 143 | mean: 143.0 | max: 144 | pstdev: 0.00408266
+
+Initiation to completion (239999 samples)
+  min: 0s 000ms 001us | mean: 0s 000ms 985us | max: 0s 012ms 025us | pstdev: 0s 000ms 203us
+
+  Percentile  Count       Value
+  0.5         120008      0s 000ms 928us
+  0.75        180002      0s 001ms 033us
+  0.8         192008      0s 001ms 085us
+  0.9         216001      0s 001ms 271us
+  0.95        228006      0s 001ms 350us
+  0.990625    237750      0s 001ms 557us
+  0.999023    239765      0s 002ms 279us
+
+Counter                                 Value       Per second
+benchmark.http_2xx                      239975      999.90
+benchmark.pool_overflow                 24          0.10
+cluster_manager.cluster_added           1           0.00
+default.total_match_count               1           0.00
+membership_change                       1           0.00
+runtime.load_success                    1           0.00
+runtime.override_dir_not_exists         1           0.00
+upstream_cx_http1_total                 4           0.02
+upstream_cx_overflow                    18          0.07
+upstream_cx_rx_bytes_total              287970004   1199874.87
+upstream_cx_total                       4           0.02
+upstream_cx_tx_bytes_total              29037096    120987.89
+upstream_rq_pending_overflow            24          0.10
+upstream_rq_pending_total               18          0.07
+upstream_rq_total                       239976      999.90
+
+kubectl --namespace twopods-istio cp /tmp/tmpod_iasvg.fortio.json fortioclient-8f7c4bcf5-gpvh4:/var/lib/fortio/2020-04-27-194734_nighthawk_f791c6ab_qps_1000_c_4_1024_v2-nullvm_srv_bothsidecars.json -c shell
+-------------- Running in both sidecar mode --------------
+nighthawk commandline: kubectl --namespace twopods-istio exec fortioclient-8f7c4bcf5-gpvh4 -c captured -- nighthawk_client --concurrency 1 --output-format json --prefetch-connections --open-loop --jitter-uniform 0.0001s --experimental-h1-connection-reuse-strategy lru --experimental-h2-use-multiple-connections --label Nighthawk --connections 8 --rps 1000 --duration 240 --request-header "x-nighthawk-test-server-config: {response_body_size:1024}" --label f791c6ab_qps_1000_c_8_1024_v2-nullvm_srv_bothsidecars http://fortioserver:8080/
+[2020-04-28 02:47:37.814][71][warning][misc] [external/envoy/source/common/protobuf/utility.cc:198] Using deprecated option 'nighthawk.client.CommandLineOptions.tls_context' from file options.proto. This configuration will be removed from Envoy soon. Please see https://www.envoyproxy.io/docs/envoy/latest/intro/deprecated for details.
+[02:47:37.826423][71][I] [source/client/process_impl.cc:197] Starting 1 threads / event loops. Test duration: 240 seconds.
+[02:47:37.826443][71][I] [source/client/process_impl.cc:199] Global targets: 8 connections and 1000 calls per second.
+[02:47:37.837406][71][I] [external/envoy/source/common/upstream/cluster_manager_impl.cc:171] cm init: all clusters initialized
+[02:51:38.326505][80][I] [source/common/sequencer_impl.cc:65] Stopping after 240000 ms. Initiated: 240000 / Completed: 239999. (Completion rate was 999.996 per second.)
+[02:51:38.417981][71][I] [source/client/client.cc:83] Done.
+Dumped Nighthawk's json to /tmp/tmpf79z7gl6
+Nighthawk - A layer 7 protocol benchmarking tool.
+
+Queueing and connection setup latency (240000 samples)
+  min: 0s 000ms 002us | mean: 0s 000ms 004us | max: 0s 000ms 569us | pstdev: 0s 000ms 002us
+
+  Percentile  Count       Value
+  0.5         120006      0s 000ms 003us
+  0.75        180003      0s 000ms 005us
+  0.8         192037      0s 000ms 006us
+  0.9         216003      0s 000ms 007us
+  0.95        228000      0s 000ms 010us
+  0.990625    237750      0s 000ms 012us
+  0.999023    239766      0s 000ms 016us
+
+Request start to response end (239999 samples)
+  min: 0s 000ms 666us | mean: 0s 001ms 008us | max: 0s 007ms 885us | pstdev: 0s 000ms 206us
+
+  Percentile  Count       Value
+  0.5         120007      0s 000ms 959us
+  0.75        180005      0s 001ms 072us
+  0.8         192004      0s 001ms 139us
+  0.9         216008      0s 001ms 300us
+  0.95        228010      0s 001ms 382us
+  0.990625    237750      0s 001ms 596us
+  0.999023    239765      0s 002ms 318us
+
+Response body size in bytes (239999 samples)
+  min: 1024 | mean: 1024.0 | max: 1024 | pstdev: 0.0
+
+Response header size in bytes (239999 samples)
+  min: 143 | mean: 143.0 | max: 143 | pstdev: 0.0
+
+Initiation to completion (239999 samples)
+  min: 0s 000ms 671us | mean: 0s 001ms 016us | max: 0s 007ms 891us | pstdev: 0s 000ms 207us
+
+  Percentile  Count       Value
+  0.5         120023      0s 000ms 966us
+  0.75        180019      0s 001ms 082us
+  0.8         192001      0s 001ms 148us
+  0.9         216009      0s 001ms 308us
+  0.95        228007      0s 001ms 392us
+  0.990625    237750      0s 001ms 606us
+  0.999023    239765      0s 002ms 325us
+
+Counter                                 Value       Per second
+benchmark.http_2xx                      239999      1000.00
+cluster_manager.cluster_added           1           0.00
+default.total_match_count               1           0.00
+membership_change                       1           0.00
+runtime.load_success                    1           0.00
+runtime.override_dir_not_exists         1           0.00
+upstream_cx_http1_total                 8           0.03
+upstream_cx_overflow                    1           0.00
+upstream_cx_rx_bytes_total              287998800   1199994.99
+upstream_cx_total                       8           0.03
+upstream_cx_tx_bytes_total              29040000    121000.00
+upstream_rq_pending_total               1           0.00
+upstream_rq_total                       240000      1000.00
+
+kubectl --namespace twopods-istio cp /tmp/tmpf79z7gl6.fortio.json fortioclient-8f7c4bcf5-gpvh4:/var/lib/fortio/2020-04-27-195139_nighthawk_f791c6ab_qps_1000_c_8_1024_v2-nullvm_srv_bothsidecars.json -c shell
+-------------- Running in both sidecar mode --------------
+nighthawk commandline: kubectl --namespace twopods-istio exec fortioclient-8f7c4bcf5-gpvh4 -c captured -- nighthawk_client --concurrency 1 --output-format json --prefetch-connections --open-loop --jitter-uniform 0.0001s --experimental-h1-connection-reuse-strategy lru --experimental-h2-use-multiple-connections --label Nighthawk --connections 16 --rps 1000 --duration 240 --request-header "x-nighthawk-test-server-config: {response_body_size:1024}" --label f791c6ab_qps_1000_c_16_1024_v2-nullvm_srv_bothsidecars http://fortioserver:8080/
+[2020-04-28 02:51:43.900][82][warning][misc] [external/envoy/source/common/protobuf/utility.cc:198] Using deprecated option 'nighthawk.client.CommandLineOptions.tls_context' from file options.proto. This configuration will be removed from Envoy soon. Please see https://www.envoyproxy.io/docs/envoy/latest/intro/deprecated for details.
+[02:51:43.912986][82][I] [source/client/process_impl.cc:197] Starting 1 threads / event loops. Test duration: 240 seconds.
+[02:51:43.913005][82][I] [source/client/process_impl.cc:199] Global targets: 16 connections and 1000 calls per second.
+[02:51:43.924044][82][I] [external/envoy/source/common/upstream/cluster_manager_impl.cc:171] cm init: all clusters initialized
+[02:55:44.413176][91][I] [source/common/sequencer_impl.cc:65] Stopping after 240000 ms. Initiated: 240000 / Completed: 239999. (Completion rate was 999.996 per second.)
+[02:55:44.505134][82][I] [source/client/client.cc:83] Done.
+Dumped Nighthawk's json to /tmp/tmpz3545vcy
+Nighthawk - A layer 7 protocol benchmarking tool.
+
+Queueing and connection setup latency (240000 samples)
+  min: 0s 000ms 002us | mean: 0s 000ms 003us | max: 0s 001ms 055us | pstdev: 0s 000ms 002us
+
+  Percentile  Count       Value
+  0.5         120048      0s 000ms 003us
+  0.75        180044      0s 000ms 003us
+  0.8         192054      0s 000ms 004us
+  0.9         216030      0s 000ms 004us
+  0.95        228001      0s 000ms 005us
+  0.990625    237750      0s 000ms 009us
+  0.999023    239767      0s 000ms 016us
+
+Request start to response end (239999 samples)
+  min: 0s 000ms 670us | mean: 0s 000ms 958us | max: 0s 007ms 447us | pstdev: 0s 000ms 220us
+
+  Percentile  Count       Value
+  0.5         120011      0s 000ms 887us
+  0.75        180000      0s 001ms 012us
+  0.8         192009      0s 001ms 070us
+  0.9         216001      0s 001ms 314us
+  0.95        228007      0s 001ms 395us
+  0.990625    237750      0s 001ms 582us
+  0.999023    239765      0s 002ms 332us
+
+Response body size in bytes (239999 samples)
+  min: 1024 | mean: 1024.0 | max: 1024 | pstdev: 0.0
+
+Response header size in bytes (239999 samples)
+  min: 143 | mean: 143.0 | max: 143 | pstdev: 0.0
+
+Initiation to completion (239999 samples)
+  min: 0s 000ms 675us | mean: 0s 000ms 965us | max: 0s 007ms 453us | pstdev: 0s 000ms 220us
+
+  Percentile  Count       Value
+  0.5         120030      0s 000ms 893us
+  0.75        180002      0s 001ms 019us
+  0.8         192003      0s 001ms 077us
+  0.9         216003      0s 001ms 320us
+  0.95        228011      0s 001ms 401us
+  0.990625    237750      0s 001ms 589us
+  0.999023    239765      0s 002ms 338us
+
+Counter                                 Value       Per second
+benchmark.http_2xx                      239999      1000.00
+cluster_manager.cluster_added           1           0.00
+default.total_match_count               1           0.00
+membership_change                       1           0.00
+runtime.load_success                    1           0.00
+runtime.override_dir_not_exists         1           0.00
+upstream_cx_http1_total                 16          0.07
+upstream_cx_overflow                    1           0.00
+upstream_cx_rx_bytes_total              287998800   1199994.82
+upstream_cx_total                       16          0.07
+upstream_cx_tx_bytes_total              29040000    120999.98
+upstream_rq_pending_total               1           0.00
+upstream_rq_total                       240000      1000.00
+
+kubectl --namespace twopods-istio cp /tmp/tmpz3545vcy.fortio.json fortioclient-8f7c4bcf5-gpvh4:/var/lib/fortio/2020-04-27-195546_nighthawk_f791c6ab_qps_1000_c_16_1024_v2-nullvm_srv_bothsidecars.json -c shell
+-------------- Running in both sidecar mode --------------
+nighthawk commandline: kubectl --namespace twopods-istio exec fortioclient-8f7c4bcf5-gpvh4 -c captured -- nighthawk_client --concurrency 1 --output-format json --prefetch-connections --open-loop --jitter-uniform 0.0001s --experimental-h1-connection-reuse-strategy lru --experimental-h2-use-multiple-connections --label Nighthawk --connections 32 --rps 1000 --duration 240 --request-header "x-nighthawk-test-server-config: {response_body_size:1024}" --label f791c6ab_qps_1000_c_32_1024_v2-nullvm_srv_bothsidecars http://fortioserver:8080/
+[2020-04-28 02:55:49.296][93][warning][misc] [external/envoy/source/common/protobuf/utility.cc:198] Using deprecated option 'nighthawk.client.CommandLineOptions.tls_context' from file options.proto. This configuration will be removed from Envoy soon. Please see https://www.envoyproxy.io/docs/envoy/latest/intro/deprecated for details.
+[02:55:49.306805][93][I] [source/client/process_impl.cc:197] Starting 1 threads / event loops. Test duration: 240 seconds.
+[02:55:49.306834][93][I] [source/client/process_impl.cc:199] Global targets: 32 connections and 1000 calls per second.
+[02:55:49.318054][93][I] [external/envoy/source/common/upstream/cluster_manager_impl.cc:171] cm init: all clusters initialized
+[02:59:49.806884][102][I] [source/common/sequencer_impl.cc:65] Stopping after 240000 ms. Initiated: 240000 / Completed: 239999. (Completion rate was 999.996 per second.)
+[02:59:49.900130][93][I] [source/client/client.cc:83] Done.
+Dumped Nighthawk's json to /tmp/tmplwtd1boi
+Nighthawk - A layer 7 protocol benchmarking tool.
+
+Queueing and connection setup latency (240000 samples)
+  min: 0s 000ms 002us | mean: 0s 000ms 004us | max: 0s 001ms 716us | pstdev: 0s 000ms 003us
+
+  Percentile  Count       Value
+  0.5         120119      0s 000ms 004us
+  0.75        180039      0s 000ms 004us
+  0.8         192056      0s 000ms 004us
+  0.9         216002      0s 000ms 005us
+  0.95        228012      0s 000ms 006us
+  0.990625    237751      0s 000ms 011us
+  0.999023    239766      0s 000ms 017us
+
+Request start to response end (239999 samples)
+  min: 0s 000ms 665us | mean: 0s 000ms 935us | max: 0s 010ms 349us | pstdev: 0s 000ms 202us
+
+  Percentile  Count       Value
+  0.5         120029      0s 000ms 878us
+  0.75        180002      0s 000ms 982us
+  0.8         192011      0s 001ms 025us
+  0.9         216000      0s 001ms 229us
+  0.95        228006      0s 001ms 334us
+  0.990625    237752      0s 001ms 575us
+  0.999023    239765      0s 002ms 323us
+
+Response body size in bytes (239999 samples)
+  min: 1024 | mean: 1024.0 | max: 1024 | pstdev: 0.0
+
+Response header size in bytes (239999 samples)
+  min: 143 | mean: 143.0 | max: 143 | pstdev: 0.0
+
+Initiation to completion (239999 samples)
+  min: 0s 000ms 672us | mean: 0s 000ms 942us | max: 0s 010ms 355us | pstdev: 0s 000ms 203us
+
+  Percentile  Count       Value
+  0.5         120013      0s 000ms 884us
+  0.75        180007      0s 000ms 989us
+  0.8         192008      0s 001ms 032us
+  0.9         216001      0s 001ms 236us
+  0.95        228004      0s 001ms 341us
+  0.990625    237751      0s 001ms 583us
+  0.999023    239765      0s 002ms 329us
+
+Counter                                 Value       Per second
+benchmark.http_2xx                      239999      1000.00
+cluster_manager.cluster_added           1           0.00
+default.total_match_count               1           0.00
+membership_change                       1           0.00
+runtime.load_success                    1           0.00
+runtime.override_dir_not_exists         1           0.00
+upstream_cx_http1_total                 32          0.13
+upstream_cx_overflow                    1           0.00
+upstream_cx_rx_bytes_total              287998800   1199994.96
+upstream_cx_total                       32          0.13
+upstream_cx_tx_bytes_total              29040000    121000.00
+upstream_rq_pending_total               1           0.00
+upstream_rq_total                       240000      1000.00
+
+kubectl --namespace twopods-istio cp /tmp/tmplwtd1boi.fortio.json fortioclient-8f7c4bcf5-gpvh4:/var/lib/fortio/2020-04-27-195951_nighthawk_f791c6ab_qps_1000_c_32_1024_v2-nullvm_srv_bothsidecars.json -c shell
+-------------- Running in both sidecar mode --------------
+nighthawk commandline: kubectl --namespace twopods-istio exec fortioclient-8f7c4bcf5-gpvh4 -c captured -- nighthawk_client --concurrency 1 --output-format json --prefetch-connections --open-loop --jitter-uniform 0.0001s --experimental-h1-connection-reuse-strategy lru --experimental-h2-use-multiple-connections --label Nighthawk --connections 64 --rps 1000 --duration 240 --request-header "x-nighthawk-test-server-config: {response_body_size:1024}" --label f791c6ab_qps_1000_c_64_1024_v2-nullvm_srv_bothsidecars http://fortioserver:8080/
+[2020-04-28 02:59:54.616][104][warning][misc] [external/envoy/source/common/protobuf/utility.cc:198] Using deprecated option 'nighthawk.client.CommandLineOptions.tls_context' from file options.proto. This configuration will be removed from Envoy soon. Please see https://www.envoyproxy.io/docs/envoy/latest/intro/deprecated for details.
+[02:59:54.628102][104][I] [source/client/process_impl.cc:197] Starting 1 threads / event loops. Test duration: 240 seconds.
+[02:59:54.628121][104][I] [source/client/process_impl.cc:199] Global targets: 64 connections and 1000 calls per second.
+[02:59:54.639366][104][I] [external/envoy/source/common/upstream/cluster_manager_impl.cc:171] cm init: all clusters initialized
+[03:03:55.128189][113][I] [source/common/sequencer_impl.cc:65] Stopping after 240000 ms. Initiated: 240000 / Completed: 239999. (Completion rate was 999.996 per second.)
+[03:03:55.225292][104][I] [source/client/client.cc:83] Done.
+Dumped Nighthawk's json to /tmp/tmpuanq53rv
+Nighthawk - A layer 7 protocol benchmarking tool.
+
+Queueing and connection setup latency (240000 samples)
+  min: 0s 000ms 002us | mean: 0s 000ms 005us | max: 0s 011ms 987us | pstdev: 0s 000ms 024us
+
+  Percentile  Count       Value
+  0.5         120021      0s 000ms 004us
+  0.75        180010      0s 000ms 005us
+  0.8         192012      0s 000ms 005us
+  0.9         216001      0s 000ms 006us
+  0.95        228004      0s 000ms 008us
+  0.990625    237750      0s 000ms 014us
+  0.999023    239766      0s 000ms 024us
+
+Request start to response end (239999 samples)
+  min: 0s 000ms 663us | mean: 0s 000ms 997us | max: 0s 033ms 138us | pstdev: 0s 000ms 419us
+
+  Percentile  Count       Value
+  0.5         120025      0s 000ms 913us
+  0.75        180007      0s 001ms 097us
+  0.8         192000      0s 001ms 220us
+  0.9         216014      0s 001ms 339us
+  0.95        228007      0s 001ms 402us
+  0.990625    237750      0s 001ms 591us
+  0.999023    239765      0s 002ms 543us
+
+Response body size in bytes (239999 samples)
+  min: 1024 | mean: 1024.0 | max: 1024 | pstdev: 0.0
+
+Response header size in bytes (239999 samples)
+  min: 143 | mean: 143.0 | max: 144 | pstdev: 0.0156772
+
+Initiation to completion (239999 samples)
+  min: 0s 000ms 669us | mean: 0s 001ms 005us | max: 0s 042ms 270us | pstdev: 0s 000ms 424us
+
+  Percentile  Count       Value
+  0.5         120012      0s 000ms 920us
+  0.75        180003      0s 001ms 106us
+  0.8         192020      0s 001ms 228us
+  0.9         216011      0s 001ms 347us
+  0.95        228007      0s 001ms 410us
+  0.990625    237750      0s 001ms 600us
+  0.999023    239765      0s 002ms 550us
+
+Counter                                 Value       Per second
+benchmark.http_2xx                      239999      1000.00
+cluster_manager.cluster_added           1           0.00
+default.total_match_count               1           0.00
+membership_change                       1           0.00
+runtime.load_success                    1           0.00
+runtime.override_dir_not_exists         1           0.00
+upstream_cx_http1_total                 64          0.27
+upstream_cx_overflow                    1           0.00
+upstream_cx_rx_bytes_total              287998859   1199995.13
+upstream_cx_total                       64          0.27
+upstream_cx_tx_bytes_total              29040000    120999.99
+upstream_rq_pending_total               1           0.00
+upstream_rq_total                       240000      1000.00
+
+kubectl --namespace twopods-istio cp /tmp/tmpuanq53rv.fortio.json fortioclient-8f7c4bcf5-gpvh4:/var/lib/fortio/2020-04-27-200356_nighthawk_f791c6ab_qps_1000_c_64_1024_v2-nullvm_srv_bothsidecars.json -c shell
+(runner) bash-3.2$ kubectl get pods -n twopods-istio
+NAME                            READY   STATUS    RESTARTS   AGE
+fortioclient-8f7c4bcf5-gpvh4    4/4     Running   0          6h56m
+fortioserver-7bd94c84f4-rwcwl   4/4     Running   0          6h56m
+(runner) bash-3.2$ kubectl cp -c shell twopods-istio/fortioclient-8f7c4bcf5-gpvh4:/var/lib/fortio /Users/carolynprh/
+tar: Removing leading `/' from member names
+(runner) bash-3.2$ python3 runner.py --conn 2 --qps 10000 --duration 100 --bothsidecar --load_gen_type nighthawk
+
+
+
+

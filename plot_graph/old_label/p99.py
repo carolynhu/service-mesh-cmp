@@ -61,8 +61,8 @@ def draw_p99(latency_p99_list):
     plt.ylabel('latency,milliseconds')
     plt.xlabel('connections')
     plt.legend()
-    plt.axis([0, 68, 0, 30])
+    plt.axis([0, 68, 0, 22])
 
     # plt.savefig(title + ".png", dpi=dpi)
-    plt.savefig("istio_1_5_p99.png", dpi=dpi)
+    plt.savefig("istio_1_6_20891_p99.png", dpi=dpi)
     plt.show()

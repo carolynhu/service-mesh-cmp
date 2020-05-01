@@ -4,7 +4,7 @@ from plot_graph.old_label.p90 import draw_p90
 from plot_graph.old_label.p50 import draw_p50
 from plot_graph.old_label.p99_9 import draw_p99_9
 
-filepath = "/Users/carolynprh/Downloads/master-2-18.csv"   # file out your csv path
+filepath = "/Users/carolynprh/service-mesh-cmp/nighthawk_debugging/nighthawk_burst_size_experiment/istio-1.6-21162.csv"   # file out your csv path
 
 
 def latency_vs_conn():
@@ -40,14 +40,14 @@ def latency_vs_conn():
 
     # draw_p90(latency_p90_list)
 
-    latency_mixer_base_p99 = get_latency_vs_conn_y_series(df, '_mixer_base', 'p99')
+    latency_mixer_base_p99 = get_latency_vs_conn_y_series(df, '_mixer_baseline', 'p99')
     latency_mixer_serveronly_p99 = get_latency_vs_conn_y_series(df, '_mixer_serveronly', 'p99')
     latency_mixer_both_p99 = get_latency_vs_conn_y_series(df, '_mixer_both', 'p99')
     latency_none_serveronly_p99 = get_latency_vs_conn_y_series(df, '_none_serveronly', 'p99')
     latency_none_both_p99 = get_latency_vs_conn_y_series(df, '_none_both', 'p99')
     # latency_none_plaintext_both_p99 = get_latency_vs_conn_y_series(df, '_none_plaintext_both', 'p99')
-    latency_v2_serveronly_p99 = get_latency_vs_conn_y_series(df, 'nullvm_serveronly', 'p99')
-    latency_v2_both_p99 = get_latency_vs_conn_y_series(df, 'nullvm_both', 'p99')
+    latency_v2_serveronly_p99 = get_latency_vs_conn_y_series(df, 'v2-nullvm_severonly', 'p99')
+    latency_v2_both_p99 = get_latency_vs_conn_y_series(df, 'v2-nullvm_both', 'p99')
     latency_p99_list = [latency_mixer_base_p99, latency_mixer_serveronly_p99, latency_mixer_both_p99,
                         latency_none_serveronly_p99, latency_none_both_p99, latency_v2_serveronly_p99,
                         latency_v2_both_p99]
@@ -73,7 +73,7 @@ def get_latency_vs_conn_y_series(df, mixer_mode, quantiles):
     for thread in [2, 4, 8, 16, 32, 64]:
         data = df.query('ActualQPS == 1000 and NumThreads == @thread and Labels.str.endswith(@mixer_mode)')
         if not data[quantiles].head().empty:
-            y_series_data.append(data[quantiles].head(1).values[0]/1000)
+            y_series_data.append(data[quantiles].head(1).values[0])  # for fortio needs divide by 1000 here
         else:
             y_series_data.append('null')
     return y_series_data
